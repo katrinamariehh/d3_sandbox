@@ -18,11 +18,11 @@ def process_login():
     password = request.form.get("password")
 
     user_id = model.authenticate(username, password)
-    print user_id
 
     if user_id:
         flash("User authenticated")
         session['user_id'] = user_id
+        session['username'] = username
     else:
         flash("Password incorrect, there may be a ferret stampede in progress!!!")
 
@@ -31,7 +31,11 @@ def process_login():
 @app.route("/register")
 def register():
     model.connect_to_db()
-    return render_template("register.html")
+
+    if session.get("user_id"):
+        return redirect(url_for('view_user', username=session.get("username")))
+    else:
+        return render_template("register.html")
 
 @app.route('/logout')
 def logout():
@@ -57,6 +61,19 @@ def post_to_wall(username):
     model.add_wall_post(current_user, wall_owner, wall_content)
 
     return redirect(url_for('view_user', username=username))
+
+@app.route('/create_account', methods=["POST"])
+def create_account():
+    model.connect_to_db()
+    username = request.form.get('username')
+    password = request.form.get('password')    
+    if model.get_user_by_name(username):
+        flash("That user already exists!")
+        return redirect(url_for("register"))
+    else:
+        model.add_new_user(username, password)
+        flash("New user created!")
+        return redirect(url_for("index"))
 
 if __name__ == "__main__":
     app.run(debug = True)
