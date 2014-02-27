@@ -14,3 +14,20 @@ form.signin input.form-control{
 form.signin input.btn {
     margin-top: 15px;
 }
+
+.logout-button {
+    width: 60px;
+    float: right;
+}
+
+.home-button {
+    width: 60px;
+    float: left;
+}
+
+.menu-bar {
+    background-color: #428bca;
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+}
