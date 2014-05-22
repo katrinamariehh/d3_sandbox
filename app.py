@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 import model
+import json
 
 app = Flask(__name__)
 app.secret_key = "shhhhthisisasecret"
@@ -75,6 +76,28 @@ def create_account():
         model.add_new_user(username, password)
         flash("New user created!")
         return redirect(url_for("index"))
+
+@app.route('/circle_packing')
+def render_circle_packing():
+    return render_template('circle_packing.html')
+
+@app.route('/flare.json')
+def create_json():
+    json_data = open('flare.json')
+    data = json.load(json_data)
+    data2 = json.dumps(data)
+    return data2
+
+@app.route('/zoomable_circles')
+def render_zoomable_circle():
+    return render_template('zoomable_circles.html')
+
+@app.route('/flare2.json')
+def create_json2():
+    json_data = open('flare2.json')
+    data = json.load(json_data)
+    data2 = json.dumps(data)
+    return data2
 
 if __name__ == "__main__":
     app.run(debug = True)

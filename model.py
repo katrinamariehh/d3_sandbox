@@ -47,7 +47,6 @@ def add_new_user(username, password):
     DB.execute(query, (username, hash(password)))
     CONN.commit()
 
-
 def main():
     connect_to_db()
 
