@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 import model
 import json
+import os
 
 app = Flask(__name__)
 app.secret_key = "shhhhthisisasecret"
@@ -98,6 +99,15 @@ def create_json2():
     data = json.load(json_data)
     data2 = json.dumps(data)
     return data2
+
+@app.route('/bargraph')
+def render_bargraph():
+    return render_template('bargraph.html')
+
+@app.route('/data.tsv')
+def create_tsv():
+    tsv_data = open('data.tsv', 'r')
+    return tsv_data
 
 if __name__ == "__main__":
     app.run(debug = True)

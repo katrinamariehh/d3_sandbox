@@ -332,7 +332,12 @@
       {
        "name": "filter",
        "children": [
-        {"name": "FisheyeTreeFilter", "size": 5219},
+        {"name": "FisheyeTreeFilter", 
+         "children": [
+          {"name": "Katrina", "size": 1234},
+          {"name": "Justin", "size" : 5432}
+         ]
+        },
         {"name": "GraphDistanceFilter", "size": 3165},
         {"name": "VisibilityFilter", "size": 3509}
        ]
